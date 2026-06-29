@@ -56,3 +56,26 @@ static void inOrderTraversal(Node* root, std::vector<int>& result) {
         current = current->right;
     }
 }
+std::vector<int> binaryTreeSort(const std::vector<int>& data, SortStats& stats) {
+    stats.comparisons = 0;
+    stats.insertions = 0;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    // Этап 1. Построение двоичного дерева поиска из элементов массива.
+    Node* root = nullptr;
+    for (int value : data) {
+        insertValue(root, value, stats.comparisons);
+        stats.insertions++;
+    }
+
+    // Этап 2. Обход дерева слева направо даёт отсортированный массив.
+    std::vector<int> result;
+    result.reserve(data.size());
+    inOrderTraversal(root, result);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    stats.timeMs = std::chrono::duration<double, std::milli>(end - start).count();
+
+    return result;
+}
