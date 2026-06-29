@@ -56,6 +56,24 @@ static void inOrderTraversal(Node* root, std::vector<int>& result) {
         current = current->right;
     }
 }
+// Освобождение памяти, занятой деревом (тоже без рекурсии).
+static void freeTree(Node* root) {
+    std::vector<Node*> stack;
+    if (root != nullptr) {
+        stack.push_back(root);
+    }
+    while (!stack.empty()) {
+        Node* node = stack.back();
+        stack.pop_back();
+        if (node->left != nullptr) {
+            stack.push_back(node->left);
+        }
+        if (node->right != nullptr) {
+            stack.push_back(node->right);
+        }
+        delete node;
+    }
+}
 std::vector<int> binaryTreeSort(const std::vector<int>& data, SortStats& stats) {
     stats.comparisons = 0;
     stats.insertions = 0;
@@ -73,6 +91,7 @@ std::vector<int> binaryTreeSort(const std::vector<int>& data, SortStats& stats) 
     std::vector<int> result;
     result.reserve(data.size());
     inOrderTraversal(root, result);
+    freeTree(root);
 
     auto end = std::chrono::high_resolution_clock::now();
     stats.timeMs = std::chrono::duration<double, std::milli>(end - start).count();
