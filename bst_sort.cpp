@@ -39,3 +39,20 @@ static void insertValue(Node*& root, int value, long long& comparisons) {
         }
     }
 }
+// Симметричный (in-order) обход дерева: левое поддерево, корень, правое.
+// Заполняет result значениями в порядке возрастания.
+// Реализация итеративная, через явный стек — по той же причине, что и вставка.
+static void inOrderTraversal(Node* root, std::vector<int>& result) {
+    std::vector<Node*> stack;
+    Node* current = root;
+    while (current != nullptr || !stack.empty()) {
+        while (current != nullptr) {
+            stack.push_back(current);
+            current = current->left;
+        }
+        current = stack.back();
+        stack.pop_back();
+        result.push_back(current->value);
+        current = current->right;
+    }
+}
