@@ -62,3 +62,17 @@ bool readArrayFromFile(const std::string& filename, std::vector<int>& out, std::
     }
     return true;
 }
+bool writeArrayToFile(const std::string& filename, const std::vector<int>& data) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        return false;
+    }
+    for (size_t i = 0; i < data.size(); i++) {
+        file << data[i];
+        if (i + 1 < data.size()) {
+            file << ", ";
+        }
+    }
+    file << "\n";
+    return true;
+}
