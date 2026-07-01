@@ -76,3 +76,22 @@ bool writeArrayToFile(const std::string& filename, const std::vector<int>& data)
     file << "\n";
     return true;
 }
+std::vector<int> generateRandomArray(int count, int minValue, int maxValue) {
+    std::vector<int> result;
+    if (count <= 0) {
+        return result;
+    }
+    if (minValue > maxValue) {
+        std::swap(minValue, maxValue);
+    }
+
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_int_distribution<int> distribution(minValue, maxValue);
+
+    result.reserve(count);
+    for (int i = 0; i < count; i++) {
+        result.push_back(distribution(generator));
+    }
+    return result;
+}
