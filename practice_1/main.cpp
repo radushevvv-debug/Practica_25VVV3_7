@@ -47,7 +47,8 @@ static void printArray(const std::vector<int>& data) {
             std::cout << data[i];
             if (i + 1 < data.size()) std::cout << ", ";
         }
-    } else {
+    }
+    else {
         for (size_t i = 0; i < 25; i++) std::cout << data[i] << ", ";
         std::cout << "... ";
         for (size_t i = data.size() - 25; i < data.size(); i++) {
@@ -97,7 +98,8 @@ int main() {
                 hasSorted = false;
                 std::cout << "Массив загружен. ";
                 printArray(current);
-            } else {
+            }
+            else {
                 std::cout << "Ошибка чтения: " << error << "\n";
             }
         }
@@ -140,7 +142,8 @@ int main() {
             std::string fileName = readFileName("Введите имя результирующего файла: ");
             if (writeArrayToFile(fileName, sorted)) {
                 std::cout << "Результат сохранён в файл \"" << fileName << "\".\n";
-            } else {
+            }
+            else {
                 std::cout << "Не удалось записать файл \"" << fileName << "\".\n";
             }
         }
